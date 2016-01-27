@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset='utf-8' />
+	<title>Using Leaflet shapefile plugin to add shapefiles</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="file:///C:/Users/user/Desktop/New folder (3)/leaflet.shapefile-gh-pages/gh-pages.css" />
+</head>
+
+<body>
+	
+	<div id="map" style='width:600px;height:500px'></div>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="file:///C:/Users/user/Desktop/New folder (3)/leaflet.shapefile-gh-pages/catiline.js"></script>
+	<script src="file:///C:/Users/user/Desktop/New folder (3)/leaflet.shapefile-gh-pages/leaflet.shpfile.js"></script>
+	<script>
+		var map = L.map('map').setView([7.54, 3.75], 8);
+		
+var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a><a href="http://www.mapsnigeriainitiative.wordpress.com">MapsNi</a>',
+	subdomains: 'abcd',
+	maxZoom: 19
+}).addTo(map);
+
+		var shpfile = new L.Shapefile('districtL.zip', {
+			onEachFeature: function(feature, layer) {
+				if (feature.properties) {
+					layer.bindPopup(Object.keys(feature.properties).map(function(k) {
+						return k + ": " + feature.properties[k];
+					}).join("<br />"), {
+						maxHeight: 200
+					});
+				}}});
+		shpfile.addTo(map);
+		shpfile.once("data:loaded", function() {
+			console.log("finished loaded shapefile");
+		});
+	</script>
+</body>
+
+</html>
