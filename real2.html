@@ -27,7 +27,7 @@ var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.
 
 	var style = {fillColor:'red', color:'black', dashArray: '5'};
 
-		var shpfile = new L.Shapefile('https://cdn.rawgit.com/mayotunde/Adding-shapefiles/gh-pages/districtL.ZIP', {style:style, onEachFeature: function(feature, layer){
+		var shpfile = new L.Shapefile('http://cdn.rawgit.com/mayotunde/Adding-shapefiles/gh-pages/districtL.ZIP', {style:style, onEachFeature: function(feature, layer){
 layer.bindPopup(feature.properties.NAME_2);
 }}).addTo(map);
 			
